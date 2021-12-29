@@ -8,7 +8,7 @@ const allChatUsers = [
         "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
       id: 1,
       name: "Tim Hover",
-      active: true,
+      active: false,
       isOnline: true,
     },
     {
@@ -83,10 +83,12 @@ const allChatUsers = [
       isOnline: true,
     },
   ];
-const ChatList=()=> {
+const ChatList=(props)=> {
   const [allChats,setallChats]=useState(allChatUsers);
-  
- 
+  const [searchval,setsearchval]=useState('');
+  const setsearchvalfunc=(e)=>{
+      setsearchval(e.target.value);
+  }
     return (
       <div className={classes.main__chatlist}>
         <button className={classes.btn}>
@@ -101,16 +103,23 @@ const ChatList=()=> {
         </div>
         <div className={classes.chatList__search}>
           <div className={classes.search_wrap}>
-            <input type="text" placeholder="Search Here" required />
+            <input type="text" placeholder="Search Here" onChange={setsearchvalfunc} required />
             <button className={classes.searchbtn}>
               <i className="fa fa-search"></i>
             </button>
           </div>
         </div>
         <div className={classes.chatlist__items}>
-          {allChats.map((item, index) => {
+          {allChats.filter((val)=>{
+            if(searchval===""){
+              return val
+            } else if(val.name.toLowerCase().includes(searchval.toLowerCase())){
+              return val
+            }
+          }).map((item, index) => {
             return (
               <ChatListItems
+                setpersonfunc={props.setpersonfunc}
                 name={item.name}
                 key={item.id}
                 animationDelay={index + 1}

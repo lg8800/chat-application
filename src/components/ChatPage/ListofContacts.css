@@ -108,7 +108,7 @@
 }
 
 .chatlist__item.active:hover {
-  background:red;
+  background:black;
   border-radius: 10px;
 }
 .isOnline {

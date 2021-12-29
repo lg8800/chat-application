@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./userProfile.css";
 
-const UserProfile=()=> {
+const UserProfile=(props)=> {
   const toggleInfo = (e) => {
     console.log("clickedd");
     e.target.parentNode.classList.toggle("open");
@@ -13,7 +13,8 @@ const UserProfile=()=> {
           <div className="profile__image">
             <img src="https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg" />
           </div>
-          <h4>Fernando Faucho</h4>
+          <h4>{props.nameofperson}</h4>
+
           <p>CEO & Founder at Highly Inc</p>
         </div>
         <div className="profile__card">

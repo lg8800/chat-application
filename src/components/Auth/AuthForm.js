@@ -1,13 +1,16 @@
-import React, { useState, useRef,useContext } from "react";
+import React, { useState, useRef, useContext } from "react";
 import axios from "axios";
-import {useHistory} from 'react-router-dom';
-import AuthContext from '../store/auth-context'
+import { useHistory } from "react-router-dom";
+import AuthContext from "../store/auth-context";
 import classes from "./AuthForm.module.css";
+import { useRecoilState } from "recoil";
+import { loggedInUser } from "../../atom/globalState";
 
 const AuthForm = () => {
-  const history=useHistory();
+  const history = useHistory();
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useRecoilState(loggedInUser);
   const firstName = useRef();
   const lastName = useRef();
   const userName = useRef();
@@ -26,10 +29,9 @@ const AuthForm = () => {
       password: password.current.value,
     };
     axios
-      .post("https://lg-chats.herokuapp.com/register", userData)
+      .post("http://localhost:8081/register", userData)
       .then((response) => {
-        
-         console.log(response.data);
+        console.log(response.data);
         window.alert(
           "User created successfully!!! Check your email to verify your email address"
         );
@@ -38,6 +40,7 @@ const AuthForm = () => {
       .catch((err) => {
         console.log(err);
         window.alert("Error in creating user");
+        setLoading(false);
       });
   };
   const submitHandlerLogin = (e) => {
@@ -48,18 +51,19 @@ const AuthForm = () => {
       password: password.current.value,
     };
     axios
-      .post("https://lg-chats.herokuapp.com/authenticate", userData)
+      .post("http://localhost:8081/authenticate", userData)
       .then((response) => {
-        authCtx.login(response.data.token);
+        // authCtx.login(response.data.token);
         console.log(response.data);
         localStorage.setItem("token", response.data.token);
-        
+        setCurrentUser(response.data.user);
         setLoading(false);
-        history.replace('/chatpage');
+        history.replace("/chatpage");
       })
       .catch((err) => {
         console.log(err);
         window.alert("Invalid username or password!");
+        setLoading(false);
       });
   };
   return (
@@ -69,42 +73,22 @@ const AuthForm = () => {
         {!isLogin && (
           <div className={classes.control}>
             <label htmlFor="firstname">Your First Name</label>
-            <input
-              type="text"
-              id="firstname"
-              ref={firstName}
-              required
-            />
+            <input type="text" id="firstname" ref={firstName} required />
           </div>
         )}
         {!isLogin && (
           <div className={classes.control}>
             <label htmlFor="lastname">Your Last Name</label>
-            <input
-              type="text"
-              id="lastname"
-              ref={lastName}
-              required
-            />
+            <input type="text" id="lastname" ref={lastName} required />
           </div>
         )}
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
-          <input
-            type="email"
-            id="email"
-            ref={userName}
-            required
-          />
+          <input type="email" id="email" ref={userName} required />
         </div>
         <div className={classes.control}>
           <label htmlFor="password">Your Password</label>
-          <input
-            type="password"
-            id="password"
-            ref={password}
-            required
-          />
+          <input type="password" id="password" ref={password} required />
         </div>
 
         <div className={classes.actions}>

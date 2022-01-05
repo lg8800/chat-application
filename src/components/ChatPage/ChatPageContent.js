@@ -1,6 +1,3 @@
-
-
-
 import classes from './ChatPageContent.module.css';
 import Nav from './Nav'
 import ChatBody from './ChatBody'

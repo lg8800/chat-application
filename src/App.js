@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import { Switch, Route ,Redirect} from 'react-router-dom';
-import "./App.css";
+// import "./App.css";
 import Layout from './components/Layout/Layout';
 import AuthContext from './components/store/auth-context';
 import AuthPage from './pages/AuthPage';

@@ -21,5 +21,5 @@ ReactDOM.render(
       </RecoilRoot>
     </BrowserRouter>
   </AuthContextProvider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

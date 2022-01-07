@@ -1,0 +1,44 @@
+import React, { Component } from "react";
+import "./userProfile.css";
+import { useRecoilValue, useRecoilState } from "recoil";
+import {
+  chatActiveContact,
+  chatMessages,
+  loggedInUser,
+} from "../../atom/globalState";
+const UserProfile=(props)=> {
+  const toggleInfo = (e) => {
+    console.log("clickedd");
+    e.target.parentNode.classList.toggle("open");
+  };
+  const currentUser = useRecoilValue(loggedInUser);
+  
+    return (
+      <div className="main__userprofile">
+        <div className="profile__card user__profile__image">
+          <div className="profile__image">
+            <img src="https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg" />
+          </div>
+          <h4>{props.nameofperson}</h4>
+          <h4>current user </h4>
+           <h4>{currentUser.firstName}</h4>
+          <p>CEO & Founder at Highly Inc</p>
+        </div>
+        <div className="profile__card">
+          <div className="card__header" onClick={toggleInfo}>
+            <h4>Information</h4>
+            <i className="fa fa-angle-down"></i>
+          </div>
+          <div className="card__content">
+           
+
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+            ultrices urna a imperdiet egestas. Donec in magna quis ligula
+            
+          </div>
+        </div>
+      </div>
+    );
+  }
+               
+  export default UserProfile;                        

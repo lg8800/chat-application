@@ -99,13 +99,13 @@ const ChatList=(props)=> {
       })
       .then((response) => {
         setallChats(response.data);
+        authCtx.setuserhandler(response.data);
       });
   };
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
-      
-    
       loadContacts();
+
     }
   }, [authCtx.isLoggedIn]);
   const setsearchvalfunc=(e)=>{
@@ -142,7 +142,8 @@ const ChatList=(props)=> {
             return (
               <ChatListItems
                 setpersonfunc={props.setpersonfunc}
-                setemailfunc={props.setemailfunc}
+                
+                setindexfunc={props.setindexfunc}
                 name={item.firstName}
                 userName={item.username}
                 key={item.id}

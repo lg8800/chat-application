@@ -3,6 +3,9 @@ import Avatar from "./Avatar";
 import './ListofContacts.css'
 import ChatContent from "../chatsection/ChatContent";
 const ChatListItems=(props)=> {  
+  const setindexfunc=()=>{
+    props.setindexfunc(props.index);
+  }
     return (
       <div
         style={{ animationDelay: `0.${props.animationDelay}s` }}
@@ -18,7 +21,7 @@ const ChatListItems=(props)=> {
           isOnline={props.isOnline}
         />
 
-        <div className="userMeta">
+        <div className="userMeta" onClick={setindexfunc}>
           <p onClick={props.setpersonfunc}>{props.name}</p>
           <p onClick={props.setemailfunc}>{props.userName}</p>
         </div>

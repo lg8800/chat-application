@@ -2,14 +2,11 @@ import React, { Component } from "react";
 import Avatar from "./Avatar";
 import './ListofContacts.css'
 import ChatContent from "../chatsection/ChatContent";
-const ChatListItems=(props)=> {
-  
-  
-    
+const ChatListItems=(props)=> {  
     return (
       <div
         style={{ animationDelay: `0.${props.animationDelay}s` }}
-        onClick={props.setpersonfunc}
+        
         className={`chatlist__item ${
           props.active ? props.active : ""
         } `}
@@ -22,8 +19,8 @@ const ChatListItems=(props)=> {
         />
 
         <div className="userMeta">
-          <p>{props.name}</p>
-          
+          <p onClick={props.setpersonfunc}>{props.name}</p>
+          <p onClick={props.setemailfunc}>{props.userName}</p>
         </div>
       </div>
     );

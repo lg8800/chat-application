@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import Avatar from "../ChatPage/Avatar";
 
 const ChatItem=(props)=> {
- 
+    console.log("chat-items component");
+    console.log(props);
+    
+
     return (
       <div
         style={{ animationDelay: `0.8s` }}

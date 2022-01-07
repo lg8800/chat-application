@@ -20,29 +20,33 @@ const ChatContent = (props) => {
   const [messages, setMessages] = useRecoilState(chatMessages);
   const [activeContact, setActiveContact] = useRecoilState(chatActiveContact);
   const [contacts, setContacts] = useState([]);
-  console.log("activrconrtct");
-  console.log(activeContact.name);
+  console.log("activecontact");
+  console.log(activeContact.email);
+  console.log("hsssssssssssssssssssssssssssss");
   console.log("currentUser");
   console.log(currentUser);
+  useEffect(() => {
+    
+  }, [messages])
   useEffect(() => {
    if (localStorage.getItem("token") !== null) {
     connect();
   }
   }, [authCtx.isLoggedIn])
   useEffect(() => {
-    if (localStorage.getItem("token") !== null) {
-   setActiveContact({name:props.nameofperson,email:props.email})
+    if (localStorage.getItem("token") !== null&&props.index!=-1) {
+   setActiveContact({name:props.nameofperson,email:authCtx.users[props.index].username})
  }
-  }, [props.nameofperson,props.email])
+  }, [props.nameofperson,props.index])
   useEffect(() => {
     if (activeContact === undefined) {
       return;
     }
     const url =
       "https://chat-lg.azurewebsites.net/messages/" +
-      activeContact.id +
+      activeContact.email +
       "/" +
-      currentUser.id;
+      currentUser.username;
     axios
       .get(url, {
         headers: {
@@ -53,7 +57,13 @@ const ChatContent = (props) => {
         console.log(response.data);
         setMessages(response.data);
       });
-  }, [activeContact]);
+  }, [activeContact.name]);
+   const scrollToBottom = () => {
+   messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages]);
   const connect = () => {
     const Stomp = require("stompjs");
     var SockJS = require("sockjs-client");
@@ -63,10 +73,10 @@ const ChatContent = (props) => {
   };
 
   const onConnected = () => {
-    console.log("connected");
-    console.log(currentUser);
+    // console.log("connected");
+    // console.log(currentUser);
     stompClient.subscribe(
-      "/user/" + currentUser.id + "/queue/messages",
+      "/user/" + currentUser.username + "/queue/messages",
       onMessageReceived
     );
   };
@@ -77,21 +87,25 @@ const ChatContent = (props) => {
   const changeinstate = (e) => {
     setmessagestate(e.target.value);
   };
-  
-  console.log("stomp");
-  console.log(stompClient);
+  // console.log("stomp");
+  // console.log(stompClient);
   const onMessageReceived = (msg) => {
+    console.log("message");
+    console.log(msg);
+    console.log("kkkkkkkkkkkkkkkkk");
     const notification = JSON.parse(msg.body);
-    const active = JSON.parse(
-      sessionStorage.getItem("recoil-persist")
-    ).chatActiveContact;
-
-    if (active.id === notification.senderId) {
+    const active = JSON.parse(sessionStorage.getItem("recoil-persist"))
+      .chatActiveContact;
+    console.log("active.enail");
+    console.log(activeContact.email);
+    console.log(notification.senderId);
+    if (active.email === notification.senderId) {
       const url =
         "https://chat-lg.azurewebsites.net/messages/" +
-        currentUser.id +
+        notification.senderId +
         "/" +
-        notification.id;
+        currentUser.username
+        ;
       axios
         .get(url, {
           headers: {
@@ -99,12 +113,21 @@ const ChatContent = (props) => {
           },
         })
         .then((message) => {
-          const newMessages = JSON.parse(
-            sessionStorage.getItem("recoil-persist")
-          ).chatMessages;
+          // const newMessages = JSON.parse(
+          //   sessionStorage.getItem("recoil-persist")
+          // ).chatMessages;
+          const newMessages = JSON.parse(sessionStorage.getItem("recoil-persist"))
+          .chatMessages;
+        newMessages.push(message.data);
+        setMessages(newMessages);
+          // setMessages([...messages,message.data]);
+          console.log("message in on-message");
+          console.log(message);
           console.log(message.data);
-          newMessages.push(message.data);
-          setMessages(newMessages);
+          console.log("ending of print");
+          // newMessages.push(message.data);
+          
+          scrollToBottom();
         });
     } else {
       message.info("Received a new message from " + notification.senderName);
@@ -113,8 +136,8 @@ const ChatContent = (props) => {
 
   const sendMessage = () => {
     if (messagestate.trim() !== "") {
-      console.log("id");
-      console.log(currentUser._id);
+      // console.log("id");
+      // console.log(currentUser._id);
       const message = {
         senderId: currentUser.username,
         recipientId: activeContact.email,
@@ -124,15 +147,14 @@ const ChatContent = (props) => {
         timestamp: new Date(),
       };
      stompClient.send("/app/chat", {}, JSON.stringify(message));
-     console.log(message);
+     
       const newMessages = [...messages];
       newMessages.push(message);
       setMessages(newMessages);
+      scrollToBottom();
+      setmessagestate('');
     }
   };
-
- 
-
   return (
  <div className="main__chatcontent">
      <div className="content__header">
@@ -143,6 +165,7 @@ const ChatContent = (props) => {
            image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU"
           />
            <p>{props.nameofperson}</p>
+           <p>{props.index}</p>
         </div>
        </div>
 
@@ -157,6 +180,7 @@ const ChatContent = (props) => {
      <div className="content__body">
        <div className="chat__items">
          {messages.map((itm, index) => {
+
            return (
           <ChatItem
          animationDelay={index + 2}
@@ -165,6 +189,7 @@ const ChatContent = (props) => {
                msg={itm.content}
                
             />
+
           );
          })}
          <div ref={messagesEndRef} />

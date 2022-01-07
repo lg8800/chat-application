@@ -6,6 +6,7 @@ export const loggedInUser = atom({
   persistence_UNSTABLE: {
     type: "loggedInUser",
   },
+  dangerouslyAllowMutability:true
 });
 
 export const chatActiveContact = atom({
@@ -14,6 +15,7 @@ export const chatActiveContact = atom({
   persistence_UNSTABLE: {
     type: "chatActiveContact",
   },
+  dangerouslyAllowMutability:true
 });
 
 export const chatMessages = atom({
@@ -22,4 +24,5 @@ export const chatMessages = atom({
   persistence_UNSTABLE: {
     type: "chatMessages",
   },
+  dangerouslyAllowMutability:true
 });

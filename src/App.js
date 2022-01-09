@@ -8,12 +8,11 @@ import HomePage from './pages/HomePage';
 import ChatPage from './pages/Chat-Page'
 function App() {
    const authCtx = useContext(AuthContext);
-
   return (
-    <Layout>
+    <div>
       <Switch>
         <Route path='/' exact>
-          <HomePage />
+          <AuthPage />
         </Route>
         <Route path='/chatpage' exact>
         {authCtx.isLoggedIn && <ChatPage />}
@@ -33,7 +32,7 @@ function App() {
           <Redirect to='/' />
         </Route>
       </Switch>
-    </Layout>
+    </div>
   );
 }
 

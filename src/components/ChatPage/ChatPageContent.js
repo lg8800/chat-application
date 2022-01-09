@@ -9,7 +9,7 @@ const ChatPageContent = () => {
     <div className={classes.root} >
     
       <section className={classes.main}>
-      <Nav/>
+     
       <ChatBody/>
       </section>
     </div>

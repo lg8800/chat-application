@@ -16,31 +16,30 @@ const MainNavigation = () => {
   };
  
   return (
-    <header className={classes.header}>
-      <Link to='/'>
-        <div className={classes.logo}>React Auth</div>
-      </Link>
-      <nav>
-        <ul>
-          {!isLoggedIn && (
-            <li>
-              <Link to='/auth'>Login</Link>
-            </li>
-          )}
-          {isLoggedIn && (
-            <li>
-              <Link to='/profile'>Profile</Link>
-            </li>
-          )}
-          {isLoggedIn && (
-            <li>
-              <button onClick={logoutHandler}>Logout</button>
-            </li>
-          )}
-        </ul>
-      </nav>
-    </header>
+    <div>
+    HELLO
+    </div>
   );
 };
 
-export default MainNavigation;
+ export default MainNavigation;
+// /* <nav>
+//         <ul>
+//           {!isLoggedIn && (
+//             <li>
+//               <Link to='/auth'>Login</Link>
+//             </li>
+//           )}
+//           {isLoggedIn && (
+//             <li>
+//               <Link to='/profile'>Profile</Link>
+//             </li>
+//           )}
+//           {isLoggedIn && (
+//             <li>
+//               <button onClick={logoutHandler}>Logout</button>
+//             </li>
+//           )}
+//         </ul>
+//       </nav>
+//       */

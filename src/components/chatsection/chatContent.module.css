@@ -1,8 +1,9 @@
 .main__chatcontent {
   flex-grow: 1;
   padding: 20px 40px;
-  max-width: 63%;
+  
   border-right: 1px solid #ebe7fb;
+  position: relative;
 }
 .content__header {
   padding-bottom: 15px;
@@ -12,6 +13,7 @@
   display: flex;
   align-items: center;
 }
+
 .current-chatting-user p {
   margin: 0;
   font-weight: 600;
@@ -22,8 +24,11 @@
   align-items: center;
 }
 .settings .btn-nobg {
-  color: #000;
+  border-radius:50%;
   cursor:pointer;
+  padding:10px;
+  background-color: orange;
+
 }
 .content__body {
   max-height: calc(100vh - calc(100vh / 2));
@@ -35,8 +40,9 @@
   align-items: flex-end;
   margin-bottom: 15px;
   transition: all 0.3s ease;
-  transform: scale(0);
+  /*transform: scale(0);
   transform-origin: right;
+  */
   animation-name: showIn;
   animation-duration: 0.2s; /* or: Xms */
   animation-iteration-count: 1;
@@ -50,14 +56,14 @@
   animation-fill-mode: both; /* or: backwards, both, none */
   animation-delay: 0.2s; /* or: Xms */
 }
-@keyframes showIn {
+/*@keyframes showIn {
   0% {
     transform: scale(0);
   }
   100% {
     transform: scale(1);
   }
-}
+}*/
 .chat__item .avatar {
   margin-right: 0px;
   margin-left: 20px;
@@ -104,7 +110,13 @@
   color: #d1d1d1;
 }
 .content__footer {
+  position: absolute;
   padding-top: 30px;
+  bottom: 60px;
+  right: 40px;
+  width: 90%;
+  
+
 }
 .sendNewMessage {
   background-color: #fff;
@@ -129,7 +141,7 @@
   transition: all 0.3s cubic-bezier(0.88, 0.19, 0.37, 1.11);
 }
 .sendNewMessage button:hover {
-  transform: scale(1.2);
+ /* transform: scale(1.2);*/
 }
 .sendNewMessage button i {
   display: block;

@@ -5,7 +5,7 @@ import {
   chatMessages,
   loggedInUser,
 } from "../../atom/globalState";
-import "./chatContent.css";
+import classes from "./chatContent.module.css";
 import Avatar from "../ChatPage/Avatar";
 import AuthContext from '../store/auth-context'
 import ChatItem from "./ChatItem";
@@ -36,7 +36,7 @@ const ChatContent = (props) => {
   useEffect(() => {
     if (localStorage.getItem("token") !== null&&props.index!=-1) {
    setActiveContact({name:props.nameofperson,email:authCtx.users[props.index].username})
- }
+  }
   }, [props.nameofperson,props.index])
   useEffect(() => {
     if (activeContact === undefined) {
@@ -116,16 +116,9 @@ const ChatContent = (props) => {
           // const newMessages = JSON.parse(
           //   sessionStorage.getItem("recoil-persist")
           // ).chatMessages;
-          const newMessages = JSON.parse(sessionStorage.getItem("recoil-persist"))
-          .chatMessages;
-        newMessages.push(message.data);
-        setMessages(newMessages);
-          // setMessages([...messages,message.data]);
-          console.log("message in on-message");
-          console.log(message);
-          console.log(message.data);
-          console.log("ending of print");
-          // newMessages.push(message.data);
+         
+        setMessages(message.data);
+         
           
           scrollToBottom();
         });
@@ -155,36 +148,41 @@ const ChatContent = (props) => {
       setmessagestate('');
     }
   };
+  const logouthandler=()=>{
+    authCtx.logout();
+  }
   return (
- <div className="main__chatcontent">
-     <div className="content__header">
-       <div className="blocks">
-        <div className="current-chatting-user">
+ <div className={classes.main__chatcontent}>
+     <div className={classes.content__header}>
+       <div className={classes.blocks}>
+        <div className={classes['current-chatting-user']}>
           <Avatar
            isOnline="active"
            image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU"
           />
            <p>{props.nameofperson}</p>
-           <p>{props.index}</p>
+           
         </div>
        </div>
 
-       <div cla ssName="blocks">
-         <div className="settings">
-          <button className="btn-nobg">
-             <i className="fa fa-cog"></i>
+       <div className={classes.blocks}>
+         <div className={classes.settings}>
+          <button className={classes['btn-nobg']} onClick={logouthandler}>
+             LOGOUT
            </button>
+           
          </div>
        </div>
      </div>
-     <div className="content__body">
-       <div className="chat__items">
+     <div className={classes.content__body}>
+       <div className={classes.chat__items}>
          {messages.map((itm, index) => {
 
            return (
           <ChatItem
+          key={index}
          animationDelay={index + 2}
-               key={index}
+               
                user={itm.type ? itm.type : "me"}
                msg={itm.content}
                
@@ -192,12 +190,13 @@ const ChatContent = (props) => {
 
           );
          })}
+
          <div ref={messagesEndRef} />
        </div>
      </div>
-     <div className="content__footer">
-       <div className="sendNewMessage">
-         <button className="addFiles">
+     <div className={classes.content__footer}  >
+       <div className={classes.sendNewMessage}>
+         <button className={classes.addFiles}>
            <i className="fa fa-plus"></i>
          </button>
          <input
@@ -206,7 +205,7 @@ const ChatContent = (props) => {
            onChange={changeinstate}
            value={messagestate}
         />
-        <button className="btnSendMsg" id="sendMsgBtn" onClick={sendMessage}>
+        <button className={classes.btnSendMsg} id="sendMsgBtn" onClick={sendMessage}>
            <i className="fa fa-paper-plane"></i>
          </button>
        </div>

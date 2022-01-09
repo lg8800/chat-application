@@ -6,8 +6,7 @@
 }
 
 .flexing {
-  background: #f6f5f7;
-  display: flex;
+ display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -44,7 +43,7 @@ a {
   margin: 15px 0;
 }
 
-button {
+.button {
   border-radius: 20px;
   border: 1px solid #FF4B2B;
   background-color: #FF4B2B;
@@ -57,20 +56,50 @@ button {
   transition: transform 80ms ease-in;
 }
 
-button:active {
+.button:active {
   transform: scale(0.95);
 }
 
-button:focus {
+.button:focus {
   outline: none;
 }
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  background-color: rgba(255,255,255,0.7);
+  z-index:9999;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 8px;
+    border-style:solid;
+    border-color:black;
+    border-top-color:transparent;
+   
+  border-radius: 50%;
+  
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
-button.ghost {
+
+.button.ghost {
   background-color: black;
   border-color: #FFFFFF;
 }
 
-form {
+.form {
   background-color: #FFFFFF;
   display: flex;
   align-items: center;

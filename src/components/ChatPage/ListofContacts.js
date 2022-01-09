@@ -118,7 +118,7 @@ const ChatList=(props)=> {
           <span>New conversation</span>
         </button>
         <div className={classes.chatlist__heading}>
-          <h2>Chats</h2>
+          <h2>List of Contacts</h2>
           <button className={classes.btnnobg}>
             <i className="fa fa-ellipsis-h"></i>
           </button>
@@ -135,18 +135,18 @@ const ChatList=(props)=> {
           {allChats.filter((val)=>{
             if(searchval===""){
               return val
-            } else if(val.name.toLowerCase().includes(searchval.toLowerCase())){
+            } else if(val.firstName.toLowerCase().includes(searchval.toLowerCase())){
               return val
             }
           }).map((item, index) => {
             return (
               <ChatListItems
                 setpersonfunc={props.setpersonfunc}
-                
+                key={index}
                 setindexfunc={props.setindexfunc}
                 name={item.firstName}
                 userName={item.username}
-                key={item.id}
+                curindex={props.curindex}
                 index={index}
                 animationDelay={index + 1}
                 active={item.active ? "active" : ""}

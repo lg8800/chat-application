@@ -3,7 +3,7 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import {useHistory} from 'react-router-dom';
 import AuthContext from '../store/auth-context'
-import "./login.css";
+import classes from "./login.module.css";
 import { loggedInUser } from "../../atom/globalState";
 
 import 'font-awesome/css/font-awesome.min.css';
@@ -51,6 +51,7 @@ const Login=()=>{
       .catch((err) => {
         console.log(err);
         window.alert("Error in creating user");
+        setLoading(false);
       });
   };
   const submitHandlerLogin = (e) => {
@@ -76,97 +77,97 @@ const Login=()=>{
       .catch((err) => {
         console.log(err);
         window.alert("Invalid username or password!");
+        setLoading(false);
       });
   };
   return (
-    <div className="flexing">
+    <div className={classes.flexing}>
       
       
-<div className={`container ${login ? "right-panel-active" : ""}`}>
-  <div className="form-container sign-up-container">
-    <form onSubmit={submitHandlerSignup}>
+<div className={`${classes.container} ${login ? classes['right-panel-active'] : ""}`}>
+  <div className={`${classes['form-container']} ${classes['sign-up-container']}`}>
+    <form className={classes.form} onSubmit={submitHandlerSignup}>
       <h1>Create Account</h1>
-      <div className="social-container">
-        <a href="#" className="social"><i className="fa-facebook-f"></i></a>
-        <a href="#" className="social"><i className="fa-google-plus-g"></i></a>
-        <a href="#" className="social"><i className="fa-linkedin-in"></i></a>
+      <div className={classes['social-container']}>
+        <a href="#" className={classes.social}><i className="fa-facebook-f"></i></a>
+        <a href="#" className={classes.social}><i className="fa-google-plus-g"></i></a>
+        <a href="#" className={classes.social}><i className="fa-linkedin-in"></i></a>
       </div>
-      <span>or use your email for registration</span>
-      <input type="text" className="input"
+      
+      <input type="text" className={classes.input}
               
               ref={firstName}
               required
             />
-            <input className="input"
+            <input className={classes.input}
               type="text"
               
               ref={lastName}
               required
             e/>
      
-           <input className="input"
+           <input className={classes.input}
             type="email"
             id="email"
             ref={emailName}
             required
           />
-     <input className="input"
+     <input className={classes.input}
             type="password"
             id="password"
             ref={passwordsignup}
             required
           />    
-      <button>Sign Up</button>
+      {!loading&&<button className={classes.button} >Sign Up</button>}
+      {loading&&<div className={classes['lds-dual-ring']}></div>}
     </form>
   </div>
-  <div className="form-container sign-in-container">
-    <form onSubmit={submitHandlerLogin}>
+  
+  <div className={`${classes['form-container']} ${classes['sign-in-container']}`}>
+    <form className={classes.form} onSubmit={submitHandlerLogin}>
       <h1>Sign in</h1>
-      <div className="social-container">
-        <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
-        <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
-        <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
+      <div className={classes['social-container']}>
+        <a href="#" className={classes.social}><i className="fab fa-facebook-f"></i></a>
+        <a href="#" className={classes.social}><i className="fab fa-google-plus-g"></i></a>
+        <a href="#" className={classes.social}><i className="fab fa-linkedin-in"></i></a>
       </div>
-      <span>or use your account</span>
-       <input className="input"
+       <input className={classes.input}
             type="email"
             id="email"
             ref={userName}
             required
           />
-     <input className="input"
+     <input className={classes.input}
             type="password"
             id="password"
             ref={password}
             required
           />      <a href="#">Forgot your password?</a>
-      <button>Sign In</button>
+      {!loading&&<button className={classes.button} >Sign In</button>}
+      {loading&&<div className={classes['lds-dual-ring']}></div>}
     </form>
   </div>
 
   
-  <div className="overlay-container">
-    <div className="overlay">
-      <div className="overlay-panel overlay-left">
+  <div className={classes['overlay-container']}>
+    <div className={classes.overlay}>
+   
+      <div className={`${classes['overlay-panel']} ${classes['overlay-left']}`}>
         <h1>Welcome Back!</h1>
         <p>To keep connected with us please login with your personal info</p>
-        <button className="ghost" onClick={changelogin} id="signIn">Sign In</button>
+        <button className={`${classes.ghost} ${classes.button}`} onClick={changelogin} id="signIn">Sign In</button>
       </div>
-      <div className="overlay-panel overlay-right">
+      <div className={`${classes['overlay-panel']} ${classes['overlay-right']}`}>
         <h1>Hello, Friend!</h1>
         <p>Enter your personal details and start journey with us</p>
-        <button className="ghost" onClick={changelogin}id="signUp">Sign Up</button>
+        <button className={`${classes.ghost} ${classes.button}`} onClick={changelogin}id="signUp">Sign Up</button>
       </div>
     </div>
   </div>
-
-
 </div>
-
-
-    </div>
+</div>
   )
 }
 
-export default Login
+export default Login;
 

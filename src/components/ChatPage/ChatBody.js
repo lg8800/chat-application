@@ -18,7 +18,7 @@ const ChatBody=()=> {
     }
 	return (
 	<div className={classes.main__chatbody}>
-        <ListofContacts setpersonfunc={setpersonfunc} setemailfunc={setemailfunc} setindexfunc={setindexfunc}/>
+        <ListofContacts setpersonfunc={setpersonfunc} curindex={index} setemailfunc={setemailfunc} setindexfunc={setindexfunc}/>
         
         {index!=-1&&<ChatContent nameofperson={nameofperson} email={email} index={index}/>}
         

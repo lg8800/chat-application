@@ -1,6 +1,7 @@
 .main__chatlist {
   border-right: 1px solid #ebe7fb;
   padding: 0 40px 0 0px;
+  width: 30%;
 }
 .chatlist__heading {
   display: flex;

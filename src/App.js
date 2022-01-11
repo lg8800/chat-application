@@ -9,7 +9,7 @@ import ChatPage from './pages/Chat-Page'
 function App() {
    const authCtx = useContext(AuthContext);
   return (
-    <div>
+    <div className="main-background">
       <Switch>
         <Route path='/' exact>
           <AuthPage />

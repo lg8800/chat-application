@@ -2,11 +2,13 @@
   border-right: 1px solid #ebe7fb;
   padding: 0 40px 0 0px;
   width: 30%;
+  color: white;
 }
 .chatlist__heading {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: white;
 }
 .btnnobg {
   background-color: transparent;
@@ -19,16 +21,19 @@
   outline: none;
 }
 .search_wrap {
-  background-color: #e6e5ea;
+  background-color: transparent;
   border-radius: 5px;
+  color: white;
 }
 .search_wrap input {
   background-color: transparent;
-  border: none;
-  padding: 15px 15px;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 10px 10px;
   outline: none;
   width: 80%;
   padding-right: 0;
+  color: white;
 }
 .searchbtn {
   height: 46px;
@@ -38,14 +43,17 @@
   width: 20%;
   cursor: pointer;
   font-size: 20px;
+  color: white;
 }
 .chatlist__items {
   margin-top: 30px;
   overflow: auto;
   max-height: calc(100vh - calc(100vh / 2));
+  color: white;
 }
 
 .chatlist__item {
+  color: white;
   display: flex;
   border-bottom: 1px solid #ebe7fb;
   padding-bottom: 10px;
@@ -67,6 +75,9 @@
   animation-fill-mode: both; /* or: backwards, both, none */
   animation-delay: 0.1s; /* or: Xms */
 }
+.chatlist__item:hover {
+  background-color: aqua;
+}
 @keyframes showIn {
   0% {
     transform: scale(0);
@@ -82,7 +93,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-
+  color: white;
   margin-right: 20px;
   position: relative;
 }
@@ -94,7 +105,7 @@
 .chatlist__item .userMeta p {
   margin: 0;
   padding: 0;
-  color: #000;
+  color: white;
   font-weight: 600;
   font-size: 14px;
 }
@@ -133,7 +144,7 @@
   height: 100%;
 }
 .btn {
-  background-color: #fff;
+  background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
@@ -145,6 +156,8 @@
   display: flex;
   padding: 0;
   transition: all 0.3s ease-in-out;
+  color: white;
+  border: 1px solid white;
 }
 .btn:hover {
   background-color: #4664ff;
@@ -161,6 +174,7 @@
   border-right: 1px solid #ebe7fb;
 }
 .btn span {
+  font-size: 15px;
   flex: 0.8;
   display: flex;
   justify-content: center;

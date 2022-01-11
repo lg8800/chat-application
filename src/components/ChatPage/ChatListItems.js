@@ -37,7 +37,7 @@ const ChatListItems=(props)=> {
         />
         
         <div className="userMeta"  onClick={setindexfun}>
-          <p onClick={props.setpersonfunc}>{props.name.toUpperCase()}</p>
+          <p style={{color:"white"}} onClick={props.setpersonfunc}>{props.name.toUpperCase()}</p>
           
         </div>
       </div>

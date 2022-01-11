@@ -1,19 +1,17 @@
-
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
 * {
   box-sizing: border-box;
 }
-body{
-  background-color: red;
-}
+
 .flexing {
- display: flex;
+  color: white;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
- 
+  font-family: "Montserrat", sans-serif;
+
   margin: 3rem auto;
 }
 
@@ -47,15 +45,21 @@ a {
 
 .button {
   border-radius: 20px;
-  border: 1px solid #FF4B2B;
-  background-color: #FF4B2B;
-  color: #FFFFFF;
+  border: 1px solid #ff4b2b;
+  background-color: #ff4b2b;
+  color: #ffffff;
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: transparent;
+  color: red;
+  border-radius: 1px solid red;
 }
 
 .button:active {
@@ -69,8 +73,8 @@ a {
   display: inline-block;
   width: 80px;
   height: 80px;
-  background-color: rgba(255,255,255,0.7);
-  z-index:9999;
+  background-color: transparent;
+  z-index: 9999;
 }
 .lds-dual-ring:after {
   content: " ";
@@ -78,12 +82,12 @@ a {
   width: 20px;
   height: 20px;
   margin: 8px;
-    border-style:solid;
-    border-color:black;
-    border-top-color:transparent;
-   
+  border-style: solid;
+  border-color: white;
+  border-top-color: transparent;
+
   border-radius: 50%;
-  
+
   animation: lds-dual-ring 1.2s linear infinite;
 }
 @keyframes lds-dual-ring {
@@ -95,14 +99,13 @@ a {
   }
 }
 
-
 .button.ghost {
   background-color: black;
-  border-color: #FFFFFF;
+  border-color: #ffffff;
 }
 
 .form {
-  background-color: #FFFFFF;
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -113,18 +116,21 @@ a {
 }
 
 .input {
-  background-color: #eee;
+  color: white;
+  background-color: transparent;
   border: none;
   padding: 12px 15px;
+  height: 30px;
+  border-bottom: 1px solid white;
   margin: 8px 0;
   width: 100%;
+  /* text */
 }
 
 .container {
-  background-color: #fff;
+  background-color: transparent;
   border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-      0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: 5px 5px 10px 10px rgba(0, 0, 0, 0.5);
   position: relative;
   overflow: hidden;
   width: 768px;
@@ -147,13 +153,14 @@ a {
 
 .container.right-panel-active .sign-in-container {
   transform: translateX(100%);
+  display: none;
 }
 
 .sign-up-container {
   left: 0;
   width: 50%;
   opacity: 0;
-  z-index: 1;
+  z-index: -1;
 }
 
 .container.right-panel-active .sign-up-container {
@@ -164,14 +171,16 @@ a {
 }
 
 @keyframes show {
-  0%, 49.99% {
+  0%,
+  49.99% {
     opacity: 0;
-    z-index: 1;
+    z-index: -1;
   }
-  
-  50%, 100% {
+
+  50%,
+  100% {
     opacity: 1;
-    z-index: 5;
+    z-index: -1;
   }
 }
 
@@ -183,31 +192,31 @@ a {
   height: 100%;
   overflow: hidden;
   transition: transform 0.6s ease-in-out;
-  z-index: 100;
+  z-index: 0;
 }
 
-.container.right-panel-active .overlay-container{
+.container.right-panel-active .overlay-container {
   transform: translateX(-100%);
 }
 
 .overlay {
-  background: #FF416C;
-  background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-  background: linear-gradient(to right, #FF4B2B, #FF416C);
+  background: transparent;
+  background: -webkit-linear-gradient(to right, transparent, transparent);
+  background: linear-gradient(to right, transparent, transparent);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
-  color: #FFFFFF;
+  color: #ffffff;
   position: relative;
   left: -100%;
   height: 100%;
   width: 200%;
-    transform: translateX(0);
+  transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
 
 .container.right-panel-active .overlay {
-    transform: translateX(50%);
+  transform: translateX(50%);
 }
 
 .overlay-panel {
@@ -247,7 +256,7 @@ a {
 }
 
 .social-container a {
-  border: 1px solid #DDDDDD;
+  border: 1px solid #dddddd;
   border-radius: 50%;
   display: inline-flex;
   justify-content: center;
@@ -258,26 +267,26 @@ a {
 }
 
 footer {
-    background-color: #222;
-    color: #fff;
-    font-size: 14px;
-    bottom: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
+  background-color: #222;
+  color: #fff;
+  font-size: 14px;
+  bottom: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 999;
 }
 
 footer p {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 footer i {
-    color: red;
+  color: red;
 }
 
 footer a {
-    color: #3c97bf;
-    text-decoration: none;
+  color: #3c97bf;
+  text-decoration: none;
 }

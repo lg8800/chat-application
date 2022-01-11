@@ -1,13 +1,16 @@
 .main__chatcontent {
   flex-grow: 1;
-  padding: 20px 40px;
-  
+  /* padding: 20px 40px; */
+  background-color: transparent;
   border-right: 1px solid #ebe7fb;
   position: relative;
 }
 .content__header {
+  padding-left: 15px;
+  padding-right: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid #ebe7fb;
+  background-color: transparent;
 }
 .current-chatting-user {
   display: flex;
@@ -24,12 +27,22 @@
   align-items: center;
 }
 .settings .btn-nobg {
-  border-radius:50%;
-  cursor:pointer;
-  padding:10px;
-  background-color: orange;
-
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
 }
+
+.btn-nobg:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
 .content__body {
   max-height: calc(100vh - calc(100vh / 2));
   overflow: auto;
@@ -56,18 +69,11 @@
   animation-fill-mode: both; /* or: backwards, both, none */
   animation-delay: 0.2s; /* or: Xms */
 }
-/*@keyframes showIn {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}*/
+
 .chat__item .avatar {
   margin-right: 0px;
   margin-left: 20px;
-  background: #fff;
+  background: none;
   padding: 1px;
 }
 .chat__item__content {
@@ -78,26 +84,83 @@
   max-width: 50%;
   min-width: 215px;
 }
-.chat__item__content .chat__meta {
+.chat__itemcontent .chat__meta {
   justify-content: space-between;
   display: flex;
   margin-top: 10px;
 }
-.chat__item__content .chat__meta span {
+.chat__itemcontent .chat__meta span {
   font-size: 14px;
   color: #8693d3;
   user-select: none;
 }
 .chat__msg {
   user-select: none;
+}
+
+.chat__item.other {
+  flex-direction: row-reverse;
+  transform-origin: left;
+}
+.chat__item.other .chatitem__content {
+  background-color: transparent;
+  color: #000;
+  border-radius: 10px 10px 10px 0;
+  max-width: 50%;
+}
+.chat__item.other .avatar {
+  margin-right: 20px;
+  margin-left: 0px;
+}
+.chat__item.other .chatitemcontent .chat__meta span {
+  color: #d1d1d1;
+}
+.content__footer {
+  position: absolute;
+  padding-top: 20px;
+  bottom: 10px;
+  right: 40px;
+  width: 90%;
+  background-color: transparent;
+}
+.sendNewMessage {
+  background-color: transparent;
   display: flex;
   justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid white;
 }
-.chat__msg button{
-  align-self: flex-start;
+.sendNewMessage button {
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  padding: 0;
+  border-radius: 5px;
+  line-height: 36px;
+  transition: all 0.3s cubic-bezier(0.88, 0.19, 0.37, 1.11);
 }
-.pink{
-  background-color: red;
+.sendNewMessage button i {
+  display: block;
+}
+.sendNewMessage input {
+  flex-grow: 1;
+  padding: 0 10px;
+  font-size: 15px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white
+}
+#sendMsgBtn {
+  background-color: #3b5bfe;
+  color: #fff;
 }
 .chat__item.other {
   flex-direction: row-reverse;
@@ -115,52 +178,4 @@
 }
 .chat__item.other .chat__item__content .chat__meta span {
   color: #d1d1d1;
-}
-.content__footer {
-  position: absolute;
-  padding-top: 30px;
-  bottom: 60px;
-  right: 40px;
-  width: 90%;
-  
-
-}
-.sendNewMessage {
-  background-color: #fff;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border-radius: 8px;
-}
-.sendNewMessage button {
-  width: 36px;
-  height: 36px;
-  background-color: #ecefff;
-  border: none;
-  box-shadow: none;
-  outline: none;
-  cursor: pointer;
-  font-size: 16px;
-  color: #4665ff;
-  padding: 0;
-  border-radius: 5px;
-  line-height: 36px;
-  transition: all 0.3s cubic-bezier(0.88, 0.19, 0.37, 1.11);
-}
-.sendNewMessage button:hover {
- /* transform: scale(1.2);*/
-}
-.sendNewMessage button i {
-  display: block;
-}
-.sendNewMessage input {
-  flex-grow: 1;
-  padding: 0 15px;
-  background-color: transparent;
-  border: none;
-  outline: none;
-}
-#sendMsgBtn {
-  background-color: #3b5bfe;
-  color: #fff;
 }

@@ -90,8 +90,15 @@
 }
 .chat__msg {
   user-select: none;
+  display: flex;
+  justify-content: space-between;
 }
-
+.chat__msg button{
+  align-self: flex-start;
+}
+.pink{
+  background-color: red;
+}
 .chat__item.other {
   flex-direction: row-reverse;
   transform-origin: left;

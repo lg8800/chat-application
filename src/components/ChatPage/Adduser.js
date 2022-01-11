@@ -86,7 +86,7 @@ const allChatUsers = [
     //   isOnline: true,
     // },
   ];
-const ChatList=(props)=> {
+const Adduser=(props)=> {
   const authCtx = useContext(AuthContext);
   const [allChats,setallChats]=useState(allChatUsers);
   const [searchval,setsearchval]=useState('');
@@ -103,23 +103,17 @@ const ChatList=(props)=> {
       });
   };
   useEffect(() => {
-    if (localStorage.getItem("token") !== null) {
+   
       loadContacts();
 
-    }
-  }, [authCtx.isLoggedIn]);
+  },[]);
   const setsearchvalfunc=(e)=>{
       setsearchval(e.target.value);
   }
-  const addnewuser=()=>{
-    props.adduserindex();
-  }
+ 
     return (
       <div className={classes.main__chatlist}>
-        <button className={classes.btn} onClick={addnewuser}>
-          <i className="fa fa-plus"></i>
-          <span>New conversation</span>
-        </button>
+       
         <div className={classes.chatlist__heading}>
           <h2>List of Contacts</h2>
           <button className={classes.btnnobg}>
@@ -162,4 +156,4 @@ const ChatList=(props)=> {
       </div>
     );
   }
-  export default ChatList;
+  export default Adduser;

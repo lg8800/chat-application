@@ -3,6 +3,7 @@ import React, { Component,useState} from "react";
 import ListofContacts from './ListofContacts'
 import ChatContent from '../chatsection/ChatContent'
 import UserProfile from '../userProfile/UserProfile'
+import Adduser from './Adduser'
 const ChatBody=()=> {
 	const [nameofperson,setnameofperson]=useState('');
   const [index,setindex]=useState(-1);
@@ -16,12 +17,15 @@ const ChatBody=()=> {
     const setemailfunc=(e)=>{
       setemail(e.target.innerText);
     }
+    const setuserindex=()=>{
+      setindex(-2);
+    }
 	return (
 	<div className={classes.main__chatbody}>
-        <ListofContacts setpersonfunc={setpersonfunc} curindex={index} setemailfunc={setemailfunc} setindexfunc={setindexfunc}/>
+        <ListofContacts adduserindex={setuserindex} setpersonfunc={setpersonfunc} curindex={index} setemailfunc={setemailfunc} setindexfunc={setindexfunc}/>
         
-        {index!=-1&&<ChatContent nameofperson={nameofperson} email={email} index={index}/>}
-        
+        {index!=-1&&index!=-2&&<ChatContent nameofperson={nameofperson} email={email} index={index}/>}
+        {index===-2&&<Adduser curindex={index} setindexfunc={setindexfunc}/>}
       </div>
 	)
 }

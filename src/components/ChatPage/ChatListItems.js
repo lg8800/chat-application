@@ -8,15 +8,26 @@ const ChatListItems=(props)=> {
   console.log(props.curindex);
   console.log(props.index);
   console.log("----------------------");
-  const setindexfunc=()=>{
+  const setindexfun=(e)=>{
+    console.log("curindex");
+    console.log(props.curindex);
+    console.log("lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll");
+  if(props.curindex!==-2)
+  {
     setactiveclass(true);
     props.setindexfunc(props.index);
   }
+  else 
+  {
+    console.log("ADING USER TO DB----------------");
+    console.log(e.target.innerText);
+    console.log(props.index);//index of user in all users array selected to be added 
+    //add to db of currentuser 
+    props.setindexfunc(-1);
+  }
+  }
     return (
-      <div 
-        
-        
-        className={`chatlist__item ${props.curindex===props.index ? "active" : ""} `}
+      <div className={`chatlist__item ${props.curindex===props.index ? "active" : ""} `} 
       >
         <Avatar
           image={
@@ -25,7 +36,7 @@ const ChatListItems=(props)=> {
           isOnline={props.isOnline}
         />
         
-        <div className="userMeta"  onClick={setindexfunc}>
+        <div className="userMeta"  onClick={setindexfun}>
           <p onClick={props.setpersonfunc}>{props.name.toUpperCase()}</p>
           
         </div>

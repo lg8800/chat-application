@@ -139,7 +139,7 @@ const ChatContent = (props) => {
         content: messagestate,
         timestamp: new Date(),
       };
-     stompClient.send("/app/chat", {}, JSON.stringify(message));
+      stompClient.send("/app/chat", {}, JSON.stringify(message));
      
       const newMessages = [...messages];
       newMessages.push(message);
@@ -182,10 +182,12 @@ const ChatContent = (props) => {
           <ChatItem
           key={index}
          animationDelay={index + 2}
-               
+               id={itm.id}
                user={itm.type ? itm.type : "me"}
                msg={itm.content}
-               
+               timestamp={itm.timestamp}
+               sender={itm.senderId}
+               currentUser={currentUser.username}
             />
 
           );

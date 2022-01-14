@@ -7,10 +7,14 @@ import {faTrash } from '@fortawesome/free-solid-svg-icons'
 const ChatItem=(props)=> {
         
          const printidofselectedmsg=()=>{
-         console.log("timestamp----------");
-         console.log(props.id); 
+          props.setdeletemsgid(props.id);
          //delete this id msg from database using this id
-         }                         
+         }    
+    if(props.deletemsgid===props.id)
+    {
+      console.log("match milgya");
+      
+    }
     return (
       <div className={`${classes.chat__item} ${props.sender!==props.currentUser? classes.other:" "}`}>
         <div className={classes.chat__item__content}>

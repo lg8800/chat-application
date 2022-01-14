@@ -16,6 +16,7 @@ const ChatContent = (props) => {
    const messagesEndRef = useRef(null);
   const authCtx = useContext(AuthContext);
   const currentUser = useRecoilValue(loggedInUser);
+  const[deletemsgid,setdeletemsgid]=useState(-1);
   const [messagestate,setmessagestate]=useState('');
   const [messages, setMessages] = useRecoilState(chatMessages);
   const [activeContact, setActiveContact] = useRecoilState(chatActiveContact);
@@ -57,7 +58,7 @@ const ChatContent = (props) => {
         console.log(response.data);
         setMessages(response.data);
       });
-  }, [activeContact.name]);
+  }, [activeContact.name,deletemsgid]);
    const scrollToBottom = () => {
    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -126,7 +127,7 @@ const ChatContent = (props) => {
       message.info("Received a new message from " + notification.senderName);
     }
   };
-
+ 
   const sendMessage = () => {
     if (messagestate.trim() !== "") {
       // console.log("id");
@@ -151,6 +152,14 @@ const ChatContent = (props) => {
   const logouthandler=()=>{
     authCtx.logout();
   }
+  useEffect(()=>{
+    if(deletemsgid!=-1)
+    {
+         console.log("timestamp----------");
+         console.log(deletemsgid); 
+         //delete this msg from db using deletemsg id prop ..
+    }
+  },[deletemsgid])
   return (
  <div className={classes.main__chatcontent}>
      <div className={classes.content__header}>
@@ -188,6 +197,8 @@ const ChatContent = (props) => {
                timestamp={itm.timestamp}
                sender={itm.senderId}
                currentUser={currentUser.username}
+               setdeletemsgid={setdeletemsgid}
+               deletemsgid={deletemsgid}
             />
 
           );

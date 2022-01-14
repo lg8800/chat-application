@@ -7,36 +7,32 @@ import {
   loggedInUser,
 } from "../../atom/globalState";
 const UserProfile=(props)=> {
-  const toggleInfo = (e) => {
-    console.log("clickedd");
-    e.target.parentNode.classList.toggle("open");
-  };
+  const submithandler=()=>{
+    //add karo props.user ko
+    console.log("submit handler");
+    console.log(props.curindex);
+    
+    props.updatecontacts(props.user);
+  }
   const currentUser = useRecoilValue(loggedInUser);
-  
+  console.log("ffkf");
+  console.log(props.user);
+  console.log("ffkf");
     return (
       <div className="main__userprofile">
-        <div className="profile__card user__profile__image">
+
+        <div className="profile__card classes.user__profile__image">
           <div className="profile__image">
             <img src="https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg" />
           </div>
-          <h4>{props.nameofperson}</h4>
-          <h4>current user </h4>
-           <h4>{currentUser.firstName}</h4>
-          <p>CEO & Founder at Highly Inc</p>
+          <div>
+          <h4>{props.user.firstName}</h4>
+          <h4>{props.user.lastName}</h4>  
+          </div>        
         </div>
-        <div className="profile__card">
-          <div className="card__header" onClick={toggleInfo}>
-            <h4>Information</h4>
-            <i className="fa fa-angle-down"></i>
-          </div>
-          <div className="card__content">
-           
 
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-            ultrices urna a imperdiet egestas. Donec in magna quis ligula
-            
-          </div>
-        </div>
+        <button className={"buttonflex"} onClick={submithandler}>ADD USER TO CONTACTS</button>
+       
       </div>
     );
   }

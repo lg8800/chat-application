@@ -95,7 +95,10 @@
   object-fit: cover;
 
 }
-
+.chatlist__item. userMeta {
+  display: flex;
+  justify-content: space-between;
+}
 .chatlist__item .userMeta p {
   margin: 0;
   padding: 0;
@@ -103,7 +106,7 @@
   font-weight: 600;
   font-size: 14px;
   text-align: center;
-  justify-content: center;
+  
 }
 .chatlist__item .userMeta span {
   margin: 0;

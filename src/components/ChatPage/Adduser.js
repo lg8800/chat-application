@@ -5,14 +5,19 @@ import classes from "./AddContacts.module.css";
 import ChatListItems from './ChatListItems'
 import 'font-awesome/css/font-awesome.min.css';
 import AuthContext from '../store/auth-context'
+import UserProfile from '../userProfile/UserProfile'
 const allChatUsers = [
     
   ];
+
+  
 const Adduser=(props)=> {
+
+  const [user,setuser]=useState({username:'',firstName:'',lastName:''});
   const authCtx = useContext(AuthContext);
   const [allChats,setallChats]=useState(allChatUsers);
   const [searchval,setsearchval]=useState('');
-  
+  const [nodata,setnodata]=useState(false);
   const setsearchvalfunc=(e)=>{
       console.log(e.target.value);
       setsearchval(e.target.value);
@@ -21,7 +26,10 @@ const Adduser=(props)=> {
     
     e.preventDefault();
 
+     if(searchval.includes('@')&&searchval.includes('.com'))
+     {
     //search for email represented by searchval in database of all users
+    
     const url =
       "https://chat-lg.azurewebsites.net/user/" +
        searchval
@@ -30,11 +38,31 @@ const Adduser=(props)=> {
       .then((response) => {
 
         console.log(response.data);
-        //setMessages(response.data);
+        if(response.data)
+        {
+          
+          setuser({username:response.data.username,firstName:response.data.firstName,lastName:response.data.lastName});
+
+        }
+        else
+        {
+          setnodata(true);
+        }
+       
+        
       });
     console.log("submitting form");
     setsearchval('');
+  }
+  else 
+  {
+    alert("ADD CORRECT EMAIL ADDRESS");
+    return;
+  }
 
+  }
+  const updatecontacts=(e)=>{
+    props.setupdatecontacts({firstName:e.firstName,lastName:e.lastName,username:e.username});
   }
     return (
       <div className={classes.main__chatlist}>
@@ -50,17 +78,18 @@ const Adduser=(props)=> {
         <div className={classes.chatList__search}>
           <div className={classes.search_wrap}>
             <input type="email" placeholder="Search Here" value={searchval} onChange={setsearchvalfunc} required />
-            <button className={classes.searchbtn}>
+            <button className={classes.searchbtn} onClick={submithandler}>
               <i className="fa fa-search"></i>
             </button>
           </div>
         </div>
        
-       <button className={classes.display} onClick={submithandler} >SUBMIT</button>
        
        </div>
        </form>
-     
+
+       {user.username.length>0&&<UserProfile setindexfunc={props.setindexfunc} curindex={props.curindex} user={user} updatecontacts={updatecontacts}/>}
+       {user.username.length===0&&nodata&&<div> No user found </div>}
       </div>
     );
   }

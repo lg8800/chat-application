@@ -10,6 +10,7 @@ const allChatUsers = [
 const ChatList=(props)=> {
   const authCtx = useContext(AuthContext);
   const [allChats,setallChats]=useState(allChatUsers);
+  const [deleteuserid,setdeleteuserid]=useState(-1);
   const [searchval,setsearchval]=useState('');
    const loadContacts = () => {
     axios
@@ -35,6 +36,27 @@ const ChatList=(props)=> {
   const addnewuser=()=>{
     props.adduserindex();
   }
+  console.log("isko daalo database me");
+  console.log(props.updatecontacts);
+  console.log("daal diya database me");
+ useEffect(()=>{
+  if(props.updatecontacts.username.length>0)
+  {
+    
+   //paste the func of adding to the database the props.updateuser and the call loadcontacts();
+
+    }
+    },[props.updatecontacts]);
+ useEffect(()=>{
+   if(deleteuserid!=-1)
+   {
+     //delete this user(using index from deleteuserid ) from list of contacts of the current user and then call loadcontacts();
+      console.log("is user ko hata rhe hai");
+      console.log(deleteuserid);
+      
+      console.log(allChats[deleteuserid].username);//ye hai iski email jisse tum search karke hata skte ho ..
+   }
+ },[deleteuserid])
     return (
       <div className={classes.main__chatlist}>
         <button className={classes.btn} onClick={addnewuser}>
@@ -76,9 +98,12 @@ const ChatList=(props)=> {
                 active={item.active ? "active" : ""}
                 isOnline={item.isOnline ? "active" : ""}
                 image={item.image}
+                deleteuserid={deleteuserid}
+                setdeleteuserid={setdeleteuserid}
               />
             );
           })}
+
         </div>
       </div>
     );

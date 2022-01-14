@@ -1,9 +1,7 @@
 .main__userprofile {
   width: 80%;
   border-top:30px;
-  display: flex;
-  flex-direction: column;
-
+  
   transition: all 0.3s ease-in-out;
   
   max-height: 50vh;
@@ -18,9 +16,9 @@
   background-color: red;
   border-radius: 10px;
   display: flex;
-  align-self: center;
+  justify-content: center;
   align-items: center;
-  justify-content: space-around;
+  flex-direction: column;
   transform: scale(0);
   animation-name: showIn;
   animation-duration: 0.2s; /* or: Xms */
@@ -65,9 +63,6 @@
   width: 100%;
   cursor: pointer;
   padding: 15px 20px;
-}
-.buttonflex{
-  align-self: center;
 }
 .profile__card .card__header h4 {
   margin: 0;

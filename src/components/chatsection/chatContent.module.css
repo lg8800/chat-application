@@ -99,6 +99,7 @@
   border-radius: 10px 10px 0 10px;
   max-width: 50%;
   min-width: 215px;
+  word-wrap: break-word;
 }
  .chat__meta {
   justify-content: flex-end;
@@ -118,6 +119,7 @@
 .chat__item.other {
   flex-direction: row-reverse;
   transform-origin: left;
+  word-wrap: break-word;
 }
 .chat__item.other .chatitem__content {
   background-color: transparent;

@@ -29,26 +29,25 @@ const Login = () => {
   const submitHandlerSignup = (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("username value");
-    console.log(emailName.current.value);
+    
     const userData = {
       username: emailName.current.value,
       firstName: firstName.current.value,
       lastName: lastName.current.value,
       password: passwordsignup.current.value,
     };
-    console.log(userData);
+    
     axios
       .post("https://chat-lg.azurewebsites.net/register", userData)
       .then((response) => {
-        console.log(response.data);
+        
         window.alert(
           "User created successfully!!! Check your email to verify your email address"
         );
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        
         window.alert("Error in creating user");
         setLoading(false);
       });
@@ -56,25 +55,24 @@ const Login = () => {
   const submitHandlerLogin = (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("username value");
-    console.log(userName.current.value);
+    
     const userData = {
       username: userName.current.value,
       password: password.current.value,
     };
-    console.log(userData);
+   
     axios
       .post("https://chat-lg.azurewebsites.net/authenticate", userData)
       .then((response) => {
         authCtx.login(response.data.token);
-        console.log(response.data);
+        
         localStorage.setItem("token", response.data.token);
         setCurrentUser(response.data.user);
         setLoading(false);
         history.replace("/chatpage");
       })
       .catch((err) => {
-        console.log(err);
+        
         window.alert("Invalid username or password!");
         setLoading(false);
       });

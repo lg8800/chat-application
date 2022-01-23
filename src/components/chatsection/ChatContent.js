@@ -5,13 +5,19 @@ import {
   chatMessages,
   loggedInUser,
 } from "../../atom/globalState";
+ import { ToastContainer, toast } from 'react-toastify';
+
+  import 'react-toastify/dist/ReactToastify.css';
 import classes from "./chatContent.module.css";
 import Avatar from "../ChatPage/Avatar";
 import AuthContext from '../store/auth-context'
 import ChatItem from "./ChatItem";
 import axios from "axios";
 import { message } from "antd";
+import {PushToTalkButton,PushToTalkButtonContainer,ErrorPanel} from '@speechly/react-ui'
+import {useSpeechContext} from '@speechly/react-client'
 var stompClient = null;
+var counter=0;
 const ChatContent = (props) => {
    const messagesEndRef = useRef(null);
   const authCtx = useContext(AuthContext);
@@ -21,14 +27,12 @@ const ChatContent = (props) => {
   const [messages, setMessages] = useRecoilState(chatMessages);
   const [activeContact, setActiveContact] = useRecoilState(chatActiveContact);
   const [contacts, setContacts] = useState([]);
-  console.log("activecontact");
-  console.log(activeContact.email);
-  console.log("hsssssssssssssssssssssssssssss");
-  console.log("currentUser");
-  console.log(currentUser);
+  const {segment} =useSpeechContext();
+  
   useEffect(() => {
     
   }, [messages])
+    
   useEffect(() => {
    if (localStorage.getItem("token") !== null) {
     connect();
@@ -55,7 +59,7 @@ const ChatContent = (props) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        
         setMessages(response.data);
       });
   }, [activeContact.name,deletemsgid]);
@@ -72,34 +76,25 @@ const ChatContent = (props) => {
     stompClient = Stomp.over(SockJS);
     stompClient.connect({}, onConnected, onError);
   };
-
   const onConnected = () => {
-    // console.log("connected");
-    // console.log(currentUser);
     stompClient.subscribe(
       "/user/" + currentUser.username + "/queue/messages",
       onMessageReceived
     );
   };
-
   const onError = (err) => {
-    console.log(err);
+    window.alert("YES");
+    
   };
   const changeinstate = (e) => {
     setmessagestate(e.target.value);
   };
-  // console.log("stomp");
-  // console.log(stompClient);
   const onMessageReceived = (msg) => {
-    console.log("message");
-    console.log(msg);
-    console.log("kkkkkkkkkkkkkkkkk");
+  
     const notification = JSON.parse(msg.body);
     const active = JSON.parse(sessionStorage.getItem("recoil-persist"))
       .chatActiveContact;
-    console.log("active.enail");
-    console.log(activeContact.email);
-    console.log(notification.senderId);
+    
     if (active.email === notification.senderId) {
       const url =
         "https://chat-lg.azurewebsites.net/messages/" +
@@ -124,29 +119,45 @@ const ChatContent = (props) => {
           scrollToBottom();
         });
     } else {
-      message.info("Received a new message from " + notification.senderName);
+     
+      toast.info('Received a new message from ' + notification.senderName, {
+position: "top-center",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+    
+    
     }
   };
  
   const sendMessage = () => {
     if (messagestate.trim() !== "") {
-      // console.log("id");
-      // console.log(currentUser._id);
+      
+     
       const message = {
         senderId: currentUser.username,
         recipientId: activeContact.email,
         senderName: currentUser.firstName,
         recipientName: activeContact.name,
         content: messagestate,
-        timestamp: new Date(),
+        timestamp:new Date(),
       };
       stompClient.send("/app/chat", {}, JSON.stringify(message));
-     
+      
       const newMessages = [...messages];
       newMessages.push(message);
       setMessages(newMessages);
+
       scrollToBottom();
       setmessagestate('');
+    }
+    else 
+    {
+      window.alert("Cant submit empty message");//khaali msg not allowed
     }
   };
   const logouthandler=()=>{
@@ -155,12 +166,17 @@ const ChatContent = (props) => {
   useEffect(()=>{
     if(deletemsgid!=-1)
     {
-         console.log("timestamp----------");
-         console.log(deletemsgid); 
-         //delete this msg from db using deletemsg id prop ..
     }
   },[deletemsgid])
-  return (
+  
+  useEffect(() => {
+    if(segment&&segment.isFinal)
+    {
+      
+      setmessagestate((prev)=>prev+" "+segment.words.map((w)=>w.value).join(" "));
+    }
+  }, [segment])
+     return (
  <div className={classes.main__chatcontent}>
      <div className={classes.content__header}>
        <div className={classes.blocks}>
@@ -209,20 +225,26 @@ const ChatContent = (props) => {
      </div>
      <div className={classes.content__footer}  >
        <div className={classes.sendNewMessage}>
-         <button className={classes.addFiles}>
-           <i className="fa fa-plus"></i>
-         </button>
+        
          <input
            type="text"
           placeholder="Type a message here"
            onChange={changeinstate}
            value={messagestate}
         />
+
+      
+        <PushToTalkButton intro="PUSH TO TALK" tapToTalkTime="60000" size="2.5rem" />
+        
+        
         <button className={classes.btnSendMsg} id="sendMsgBtn" onClick={sendMessage}>
            <i className="fa fa-paper-plane"></i>
          </button>
        </div>
      </div>
+     
+
+
    </div>
    );
  };

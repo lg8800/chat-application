@@ -6,22 +6,31 @@ import ChatListItems from './ChatListItems'
 import 'font-awesome/css/font-awesome.min.css';
 import AuthContext from '../store/auth-context'
 import UserProfile from '../userProfile/UserProfile'
+import { useRecoilValue, useRecoilState } from "recoil";
+import {
+  chatActiveContact,
+  chatMessages,
+  loggedInUser,
+} from "../../atom/globalState";
 const allChatUsers = [
     
   ];
 
   
 const Adduser=(props)=> {
-
+  
+  
+  const [activeContact, setActiveContact] = useRecoilState(chatActiveContact);
   const [user,setuser]=useState({username:'',firstName:'',lastName:''});
   const authCtx = useContext(AuthContext);
   const [allChats,setallChats]=useState(allChatUsers);
   const [searchval,setsearchval]=useState('');
   const [nodata,setnodata]=useState(false);
   const setsearchvalfunc=(e)=>{
-      console.log(e.target.value);
+      
       setsearchval(e.target.value);
   }
+  
   const submithandler=(e)=>{
     
     e.preventDefault();
@@ -36,8 +45,7 @@ const Adduser=(props)=> {
     axios
       .get(url)
       .then((response) => {
-
-        console.log(response.data);
+       
         if(response.data)
         {
           
@@ -51,7 +59,7 @@ const Adduser=(props)=> {
        
         
       });
-    console.log("submitting form");
+   
     setsearchval('');
   }
   else 
@@ -62,7 +70,7 @@ const Adduser=(props)=> {
 
   }
   const updatecontacts=(e)=>{
-    props.setupdatecontacts({firstName:e.firstName,lastName:e.lastName,username:e.username});
+    props.setupdatecontacts({username:e.username,firstName:e.firstName,lastName:e.lastName});
   }
     return (
       <div className={classes.main__chatlist}>

@@ -1,6 +1,12 @@
 
 import React, { useEffect,Component,useState,useContext} from "react";
 import axios from "axios";
+import { useRecoilValue, useRecoilState } from "recoil";
+import {
+  chatActiveContact,
+  chatMessages,
+  loggedInUser,
+} from "../../atom/globalState";
 import classes from "./ListofContacts.module.css";
 import ChatListItems from './ChatListItems'
 import 'font-awesome/css/font-awesome.min.css';
@@ -8,18 +14,25 @@ import AuthContext from '../store/auth-context'
 const allChatUsers = [
   ];
 const ChatList=(props)=> {
+  
+        
+        
+        
   const authCtx = useContext(AuthContext);
+  const currentUser = useRecoilValue(loggedInUser);
+ 
   const [allChats,setallChats]=useState(allChatUsers);
   const [deleteuserid,setdeleteuserid]=useState(-1);
   const [searchval,setsearchval]=useState('');
    const loadContacts = () => {
     axios
-      .get("https://chat-lg.azurewebsites.net/users/", {
+      .get("https://chat-lg.azurewebsites.net/contacts/"+currentUser.username, {
         headers: {
           Authorization: "Bearer" + authCtx.token,
         },
       })
       .then((response) => {
+       
         setallChats(response.data);
         authCtx.setuserhandler(response.data);
       });
@@ -36,25 +49,47 @@ const ChatList=(props)=> {
   const addnewuser=()=>{
     props.adduserindex();
   }
-  console.log("isko daalo database me");
-  console.log(props.updatecontacts);
-  console.log("daal diya database me");
+ 
  useEffect(()=>{
   if(props.updatecontacts.username.length>0)
   {
-    
+  
+  var j=0;
+  for(var i=0;i<allChats.length;i++)
+  {
+    if(allChats[i].username===props.updatecontacts.username)
+    {
+      j=1;
+      break;
+    }
+  }
+ 
    //paste the func of adding to the database the props.updateuser and the call loadcontacts();
+   if(j===0)
+   {
+    axios
+      .post("https://chat-lg.azurewebsites.net/contacts/"+currentUser.username,props.updatecontacts)
+      .then((response) => {
+        
+      
+        props.setindexfunc(-1);
+       loadContacts();
+      })
+      .catch((err) => {
+       window.alert(err.message);
+      });
+    }
+    else 
+    {
+      window.alert("user already exists");
+       props.setindexfunc(-1);
+    }
 
     }
     },[props.updatecontacts]);
  useEffect(()=>{
    if(deleteuserid!=-1)
    {
-     //delete this user(using index from deleteuserid ) from list of contacts of the current user and then call loadcontacts();
-      console.log("is user ko hata rhe hai");
-      console.log(deleteuserid);
-      
-      console.log(allChats[deleteuserid].username);//ye hai iski email jisse tum search karke hata skte ho ..
    }
  },[deleteuserid])
     return (
@@ -78,7 +113,7 @@ const ChatList=(props)=> {
           </div>
         </div>
         <div className={classes.chatlist__items}>
-          {allChats.filter((val)=>{
+          {allChats.length>0&&allChats.filter((val)=>{
             if(searchval===""){
               return val
             } else if(val.firstName.toLowerCase().includes(searchval.toLowerCase())){
@@ -92,7 +127,7 @@ const ChatList=(props)=> {
                 setindexfunc={props.setindexfunc}
                 name={item.firstName}
                 userName={item.username}
-                curindex={props.curindex}
+                curindex={props.curindex}   
                 index={index}
                 animationDelay={index + 1}
                 active={item.active ? "active" : ""}

@@ -16,7 +16,7 @@ import axios from "axios";
 import { message } from "antd";
 import {PushToTalkButton,PushToTalkButtonContainer,ErrorPanel} from '@speechly/react-ui'
 import {useSpeechContext} from '@speechly/react-client'
-var stompClient = null;
+var stompClient=null;
 var counter=0;
 const ChatContent = (props) => {
    const messagesEndRef = useRef(null);
@@ -30,12 +30,17 @@ const ChatContent = (props) => {
   const {segment} =useSpeechContext();
   
   useEffect(() => {
+    return () => {
+      
+    };
+  }, [])
+  useEffect(() => {
     
   }, [messages])
     
   useEffect(() => {
    if (localStorage.getItem("token") !== null) {
-    connect();
+    stompClient==null&&connect();
   }
   }, [authCtx.isLoggedIn])
   useEffect(() => {
@@ -73,7 +78,7 @@ const ChatContent = (props) => {
     const Stomp = require("stompjs");
     var SockJS = require("sockjs-client");
     SockJS = new SockJS("https://chat-lg.azurewebsites.net/ws");
-    stompClient = Stomp.over(SockJS);
+    stompClient=Stomp.over(SockJS);
     stompClient.connect({}, onConnected, onError);
   };
   const onConnected = () => {
@@ -172,10 +177,13 @@ progress: undefined,
   useEffect(() => {
     if(segment&&segment.isFinal)
     {
-      
       setmessagestate((prev)=>prev+" "+segment.words.map((w)=>w.value).join(" "));
     }
   }, [segment])
+  const profilesectionhandler=()=>{
+    //take to profile page of this person (props.nameofperson)
+    props.setindexfunc(-3);
+  }
      return (
  <div className={classes.main__chatcontent}>
      <div className={classes.content__header}>
@@ -185,7 +193,7 @@ progress: undefined,
            isOnline="active"
            image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU"
           />
-           <p>{props.nameofperson}</p>
+           <div onClick={profilesectionhandler}>{props.nameofperson}</div>
            
         </div>
        </div>

@@ -14,6 +14,7 @@ const UserProfile=(props)=> {
     
     props.updatecontacts(props.user);
   }
+  
   const currentUser = useRecoilValue(loggedInUser);
   console.log("ffkf");
   console.log(props.user);
@@ -31,7 +32,7 @@ const UserProfile=(props)=> {
           </div>        
         </div>
 
-        <button className={"buttonflex"} onClick={submithandler}>ADD USER TO CONTACTS</button>
+        {props.curindex===-2&&<button className={"buttonflex"} onClick={submithandler}>ADD USER TO CONTACTS</button>}
        
       </div>
     );

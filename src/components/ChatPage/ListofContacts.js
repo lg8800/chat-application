@@ -127,7 +127,9 @@ const ChatList=(props)=> {
                 setindexfunc={props.setindexfunc}
                 name={item.firstName}
                 userName={item.username}
-                curindex={props.curindex}   
+                lastName={item.lastName}
+                curindex={props.curindex}
+                setindexwithname={props.setindexwithname}   
                 index={index}
                 animationDelay={index + 1}
                 active={item.active ? "active" : ""}

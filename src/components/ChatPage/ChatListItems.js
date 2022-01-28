@@ -13,6 +13,7 @@ const ChatListItems=(props)=> {
   {
     setactiveclass(true);
     props.setindexfunc(props.index);
+    props.setindexwithname({username:props.userName,firstName:props.name,lastName:props.lastName})
   }
   else 
   {
@@ -23,7 +24,11 @@ const ChatListItems=(props)=> {
   const handleuserdeletefunc=()=>{
     props.setdeleteuserid(props.index);
   }
-  
+  const handlesubmission=(e)=>{
+    //props.setpersonfunc
+    props.setpersonfunc(e);
+    props.setindexwithname({username:props.userName,firstName:props.name,lastName:props.lastName});
+  }
     return (
       <div className={`chatlist__item ${props.curindex===props.index ? "active" : ""} `} 
       >
@@ -36,7 +41,7 @@ const ChatListItems=(props)=> {
         
         <div className="userMeta"  onClick={setindexfun}>
         
-          <p style={{color:"white"}} onClick={props.setpersonfunc}>{props.name.toUpperCase()}</p>
+          <p style={{color:"white"}} onClick={handlesubmission}>{props.name.toUpperCase()}</p>
           
            <button onClick={handleuserdeletefunc}>
         <FontAwesomeIcon icon={faTrash}/>

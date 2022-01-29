@@ -27,9 +27,9 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start", 
-    "build": "react-scripts build", 
-    "serve": "serve build", 
+    "start": "react-scripts start",
+    "build": "CI=false && react-scripts build",
+    "serve": "serve build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -55,6 +55,9 @@
     "recoil-persist": "^0.6.0"
   },
   "react-dotenv": {
-    "whitelist": ["app_id","lang"]
+    "whitelist": [
+      "app_id",
+      "lang"
+    ]
   }
 }

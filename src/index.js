@@ -16,7 +16,7 @@ const { RecoilPersist, updateState } = recoilPersist([], {
 });
 
 ReactDOM.render(
-  <SpeechProvider appId={env.app_id} language={env.lang}>
+  <SpeechProvider appId="8b238cd8-597a-4c70-add6-222799409645" language="en-US">
     <AuthContextProvider>
       <BrowserRouter>
         <RecoilRoot initializeState={updateState}>

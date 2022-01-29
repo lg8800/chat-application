@@ -1,4 +1,3 @@
-
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
@@ -7,10 +6,9 @@ import "./index.css";
 import App from "./App";
 import { RecoilRoot } from "recoil";
 import recoilPersist from "recoil-persist";
-import { ToastContainer, toast } from 'react-toastify';
-import {SpeechProvider} from '@speechly/react-client';
-  import 'react-toastify/dist/ReactToastify.css';
-import env from "react-dotenv";
+import { ToastContainer, toast } from "react-toastify";
+import { SpeechProvider } from "@speechly/react-client";
+import "react-toastify/dist/ReactToastify.css";
 
 const { RecoilPersist, updateState } = recoilPersist([], {
   key: "recoil-persist",
@@ -19,15 +17,15 @@ const { RecoilPersist, updateState } = recoilPersist([], {
 
 ReactDOM.render(
   <SpeechProvider appId={env.app_id} language={env.lang}>
-  <AuthContextProvider>
-    <BrowserRouter>
-      <RecoilRoot initializeState={updateState}>
-        <RecoilPersist />
-        <App />
-        <ToastContainer pauseOnFocusLoss={false}/>
-      </RecoilRoot>
-    </BrowserRouter>
-  </AuthContextProvider>
+    <AuthContextProvider>
+      <BrowserRouter>
+        <RecoilRoot initializeState={updateState}>
+          <RecoilPersist />
+          <App />
+          <ToastContainer pauseOnFocusLoss={false} />
+        </RecoilRoot>
+      </BrowserRouter>
+    </AuthContextProvider>
   </SpeechProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

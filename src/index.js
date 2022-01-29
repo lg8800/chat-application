@@ -1,7 +1,4 @@
-if(process.env.NODE_ENV !== "production")
-{
-  require('dotenv').config();
-}
+
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
@@ -13,6 +10,7 @@ import recoilPersist from "recoil-persist";
 import { ToastContainer, toast } from 'react-toastify';
 import {SpeechProvider} from '@speechly/react-client';
   import 'react-toastify/dist/ReactToastify.css';
+import env from "react-dotenv";
 
 const { RecoilPersist, updateState } = recoilPersist([], {
   key: "recoil-persist",
@@ -21,7 +19,7 @@ const { RecoilPersist, updateState } = recoilPersist([], {
 const lang=process.env.lang||'en-US'
 const appid=process.env.app_id||'8b238cd8-597a-4c70-add6-222799409645'
 ReactDOM.render(
-  <SpeechProvider appId={appid} language={lang}>
+  <SpeechProvider appId={env.appid} language={env.lang}>
   <AuthContextProvider>
     <BrowserRouter>
       <RecoilRoot initializeState={updateState}>

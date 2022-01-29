@@ -43,9 +43,9 @@ const ChatListItems=(props)=> {
         
           <p style={{color:"white"}} onClick={handlesubmission}>{props.name.toUpperCase()}</p>
           
-           <button onClick={handleuserdeletefunc}>
-        <FontAwesomeIcon icon={faTrash}/>
-        </button>
+
+          
+       
         </div>
       </div>
     );

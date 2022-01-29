@@ -15,6 +15,9 @@ function App() {
         <Route path='/' exact>
           <AuthPage />
         </Route>
+        <Route path='/check' exact>
+        <p>HELLO</p>
+        </Route>
         <Route path='/chatpage' exact>
         {authCtx.isLoggedIn && <ChatPage />}
 

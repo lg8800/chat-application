@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/ce47d065-f804-4e9c-ac5d-eb42a76408ea/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/talk-to-chat",
+  "appService.deploySubpath": "."
+}
